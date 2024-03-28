@@ -4,10 +4,37 @@ import GettingStartedPage from './components/GettingStartedPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import NotesDashboard from './components/Notes/NotesDashboard';
+import NewNote from './components/Notes/NewNote';
+import { TouchableOpacity } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { AuthenticationPostAPI } from './APIrequests/PostRequests';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [customNavigation, setCustomNavigation] = useState();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const handleSaveNote = () => {
+    const theNotes = {
+      email: 'motin@gmail.com',
+      title: title,
+      description: description
+    }
+    AuthenticationPostAPI.createNote(theNotes).then((res) => {
+      if(res.message === 'Notes created successfully.'){
+        customNavigation.navigate('NotesDashboard');
+      }
+      else{
+        console.log(res);
+      }
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -28,6 +55,35 @@ export default function App() {
         <Stack.Screen name="NotesDashboard" component={NotesDashboard} options={{
           headerShown: false,
         }} />
+
+
+        <Stack.Screen
+          name="NewNote"
+          options={{
+            headerTitle: "Create New Note",
+            headerStyle: { backgroundColor: '#000' },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={handleSaveNote}
+              >
+                <FontAwesomeIcon icon={faCheck} size={20} color="white" />
+              </TouchableOpacity>
+            ),
+          }}
+        >
+          {(props) => (
+            <NewNote
+              {...props}
+              setTitle={setTitle}
+              setDescription={setDescription}
+              setCustomNavigation={setCustomNavigation}
+            />
+          )}
+        </Stack.Screen>
+
+
         {/* <Stack.Screen name="Notes" component={Notes} /> */}
       </Stack.Navigator>
     </NavigationContainer>

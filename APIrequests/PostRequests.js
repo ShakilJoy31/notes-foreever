@@ -13,12 +13,10 @@ const postUser = async (payload) => {
     console.log(error);
     return error;
   }
-  };
+};
 
-
-
-  const createUser = async (payload) => {
-    console.log(payload);
+const createUser = async (payload) => {
+  console.log(payload);
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
@@ -32,6 +30,26 @@ const postUser = async (payload) => {
   }
 };
 
+
+
+const createNote = async (payload) => {
+  console.log(payload);
+  const axiosInstance = axios.create({
+    baseURL: BASE_URL,
+  });
+
+  try {
+    const response = await axiosInstance.post('api/v1/notes/create-note', payload);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
+
+
 // const handleGettingRestaurants = async () => {
 //     const axiosInstance = axios.create({
 //         baseURL: BASE_URL
@@ -44,8 +62,9 @@ const postUser = async (payload) => {
 //     }
 //   };
 
-  export const AuthenticationPostAPI = {
-    postUser,
-    createUser
-    // handleGettingRestaurants,
-  }
+export const AuthenticationPostAPI = {
+  postUser,
+  createUser,
+  createNote
+  // handleGettingRestaurants,
+}

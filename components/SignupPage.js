@@ -12,7 +12,8 @@ const SignupPage = ({ navigation }) => {
         const userData = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            notes: []
         }
         AuthenticationPostAPI.createUser(userData).then((res) => {
             if(res?.message === 'User created successfully!Thank you.'){

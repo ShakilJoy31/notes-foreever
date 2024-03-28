@@ -10,13 +10,8 @@ const NotesDashboard = ({ navigation }) => {
     const [name, setName] = useState('');
 
 
-    const handleSignupButton = () => {
-        const userData = {
-            name: name,
-            email: email,
-            password: password
-        }
-        //   () => navigation.navigate('Home')
+    const handleAddNewNoteButton = () => {
+        navigation.navigate('NewNote');
     }
     const cardData = [
         { id: 1, title: 'Shoping list for august' },
@@ -36,7 +31,6 @@ const NotesDashboard = ({ navigation }) => {
         { id: 15, title: 'Card 4' },
         { id: 16, title: 'Card 4' },
         { id: 17, title: 'Card 4' },
-        // Add more card data as needed
     ];
 
 
@@ -52,7 +46,7 @@ const NotesDashboard = ({ navigation }) => {
                     <View style={styles.theSearchBar}>
                         <TextInput
                             style={[styles.inputField, { marginVertical: 5 }]}
-                            placeholder="Search here..."
+                            placeholder="Search notes of to do..."
                             placeholderTextColor="#000"
                             onChangeText={(e) => setEmail(e)}
                         />
@@ -79,7 +73,7 @@ const NotesDashboard = ({ navigation }) => {
             </LinearGradient>
 
 
-            <ScrollView style={{flex: 1}}>
+            <ScrollView style={{ flex: 1 }}>
                 <View style={styles.rowContainer}>
                     {cardData.map((card, index) => (
                         <TouchableOpacity key={index} style={styles.cardContainer}>
@@ -97,20 +91,18 @@ const NotesDashboard = ({ navigation }) => {
                 </View>
 
             </ScrollView>
-                <TouchableOpacity style={styles.plusButton}>
-                <Text style={[styles.userName, {fontSize: 45}]}>+</Text>
+
+
+            {/* Add new note button */}
+            <TouchableOpacity onPress={handleAddNewNoteButton} style={styles.plusButton}>
+                <Text style={[styles.userName, { fontSize: 45 }]}>+</Text>
             </TouchableOpacity>
-
-
-            {/* The add button */}
-           
 
         </ImageBackground>
     )
 }
 
 export default NotesDashboard;
-
 
 const styles = StyleSheet.create({
     homeBackgroundImage: {
@@ -183,8 +175,6 @@ const styles = StyleSheet.create({
 
     rowContainer: {
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        // flexWrap: 'wrap',
     },
     cardContainer: {
         width: '100%',
@@ -196,13 +186,11 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 5,
     },
-
     searchNote: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         borderRadius: 5,
-        marginTop: 10,
     },
     homePageText: {
         fontSize: 20,
@@ -233,63 +221,3 @@ const styles = StyleSheet.create({
         color: '#000',
     },
 });
-
-
-
-
-
-
-// Store
-
-// <View style={{marginTop: 15}}>
-// <TouchableOpacity onPress={handleSignupButton} style={styles.gettingStartedButton}>
-//     <Text style={{ color: '#fff', fontSize: 18}}>Sign up</Text>
-// </TouchableOpacity>
-// </View>
-
-
-
-
-
-
-// {/* <View style={styles.theApp}>
-//                     <LinearGradient
-//                         colors={['#09203f69', '#5378956d']}
-//                         style={{ paddingHorizontal: 20, paddingVertical: 35, borderRadius: 5, }}>
-//                         <View>
-//                             <Text style={{ color: '#fff', alignSelf: 'center', fontSize: 25, flexDirection: 'row' }}>This is notes dashboard</Text>
-
-//                             {/* <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-//                             <Text style={{ color: '#000', alignSelf: 'center', marginTop: 25, fontSize: 18, flexDirection: 'row' }}>This is notes dashboard</Text>
-//                         </TouchableOpacity> */}
-//                         </View>
-//                     </LinearGradient>
-
-
-
-//                     <LinearGradient
-//                         colors={['#09203f69', '#5378956d']}
-//                         style={{ paddingHorizontal: 20, paddingVertical: 35, borderRadius: 5, }}>
-//                         <View>
-//                             <Text style={{ color: '#fff', alignSelf: 'center', fontSize: 25, flexDirection: 'row' }}>This is notes dashboard</Text>
-
-//                             {/* <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-//                             <Text style={{ color: '#000', alignSelf: 'center', marginTop: 25, fontSize: 18, flexDirection: 'row' }}>This is notes dashboard</Text>
-//                         </TouchableOpacity> */}
-//                         </View>
-//                     </LinearGradient>
-
-
-
-//                     <LinearGradient
-//                         colors={['#09203f69', '#5378956d']}
-//                         style={{ paddingHorizontal: 20, paddingVertical: 35, borderRadius: 5, }}>
-//                         <View>
-//                             <Text style={{ color: '#fff', alignSelf: 'center', fontSize: 25, flexDirection: 'row' }}>This is notes dashboard</Text>
-
-//                             {/* <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-//                             <Text style={{ color: '#000', alignSelf: 'center', marginTop: 25, fontSize: 18, flexDirection: 'row' }}>This is notes dashboard</Text>
-//                         </TouchableOpacity> */}
-//                         </View>
-//                     </LinearGradient>
-//                 </View> */}

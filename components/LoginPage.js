@@ -13,16 +13,17 @@ const LoginPage = ({ navigation }) => {
             email: email,
             password: password
         }
-        AuthenticationPostAPI.postUser(userData).then((res) => {
-            if(res?.message === 'User found!'){
-                navigation.navigate('NotesDashboard');
-            }else {
-                console.log('Not matched.');
-            }
-        })
-          .catch((error) => {
-            console.log(error);
-          });
+        navigation.navigate('NotesDashboard');
+        // AuthenticationPostAPI.postUser(userData).then((res) => {
+        //     if(res?.message === 'User found!'){
+        //         navigation.navigate('NotesDashboard');
+        //     }else {
+        //         console.log('Not matched.');
+        //     }
+        // })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
     }
 
     return (
