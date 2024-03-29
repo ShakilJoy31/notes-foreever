@@ -1,37 +1,27 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { LinearGradient } from "expo-linear-gradient";
+import { AuthenticationPostAPI } from "../../APIrequests/PostRequests";
 
-const NotesDashboard = ({ navigation }) => {
+const NotesDashboard = ({ navigation, cardData, setCardData }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
-
     const handleAddNewNoteButton = () => {
         navigation.navigate('NewNote');
     }
-    const cardData = [
-        { id: 1, title: 'Shoping list for august' },
-        { id: 2, title: 'Random list' },
-        { id: 3, title: 'My Hidden secrets' },
-        { id: 4, title: 'A memoriable history of my last journey to cox"s bazar. ' },
-        { id: 5, title: 'Card 4' },
-        { id: 6, title: 'Card 4' },
-        { id: 7, title: 'Card 4' },
-        { id: 8, title: 'Card 4' },
-        { id: 9, title: 'Card 4' },
-        { id: 10, title: 'Card 4' },
-        { id: 11, title: 'Card 4' },
-        { id: 12, title: 'Card 4' },
-        { id: 13, title: 'Card 4' },
-        { id: 14, title: 'Card 4' },
-        { id: 15, title: 'Card 4' },
-        { id: 16, title: 'Card 4' },
-        { id: 17, title: 'Card 4' },
-    ];
+
+    useEffect(()=> {
+        // abdul@gmail.com
+        AuthenticationPostAPI.getUserNotes('motin@gmail.com').then(res => {
+            setCardData(res?.data?.notes);
+        })
+    },[])
+
+    console.log(cardData);
 
 
     return (
@@ -75,7 +65,7 @@ const NotesDashboard = ({ navigation }) => {
 
             <ScrollView style={{ flex: 1 }}>
                 <View style={styles.rowContainer}>
-                    {cardData.map((card, index) => (
+                    {cardData?.map((card, index) => (
                         <TouchableOpacity key={index} style={styles.cardContainer}>
                             <LinearGradient
                                 colors={['#614385a3', '#516395a9']}
@@ -84,12 +74,11 @@ const NotesDashboard = ({ navigation }) => {
                                     <Text style={styles.textStyle}>{card.title}</Text>
                                     <Text style={styles.notesTimeStamps}>12 November, 12:55 AM</Text>
                                 </View>
-                                <Text style={styles.noteDescription}>This is the discription for the individual notes.</Text>
+                                <Text style={styles.noteDescription}>{card.description}</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     ))}
                 </View>
-
             </ScrollView>
 
 

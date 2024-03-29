@@ -48,6 +48,22 @@ const createNote = async (payload) => {
 };
 
 
+const getUserNotes = async (email) => {
+  console.log(email);
+  const axiosInstance = axios.create({
+    baseURL: BASE_URL,
+  });
+
+  try {
+    const response = await axiosInstance.post('api/v1/notes/get-user-note', {email: email});
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
 
 
 // const handleGettingRestaurants = async () => {
@@ -65,6 +81,7 @@ const createNote = async (payload) => {
 export const AuthenticationPostAPI = {
   postUser,
   createUser,
-  createNote
+  createNote,
+  getUserNotes
   // handleGettingRestaurants,
 }

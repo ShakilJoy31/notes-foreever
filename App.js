@@ -17,6 +17,7 @@ export default function App() {
   const [customNavigation, setCustomNavigation] = useState();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [cardData, setCardData] = useState([]);
   const handleSaveNote = () => {
     const theNotes = {
       email: 'motin@gmail.com',
@@ -25,6 +26,7 @@ export default function App() {
     }
     AuthenticationPostAPI.createNote(theNotes).then((res) => {
       if(res.message === 'Notes created successfully.'){
+        setCardData(res?.data?.notes);
         customNavigation.navigate('NotesDashboard');
       }
       else{
@@ -52,9 +54,17 @@ export default function App() {
           headerShown: false,
         }} />
 
-        <Stack.Screen name="NotesDashboard" component={NotesDashboard} options={{
+        <Stack.Screen name="NotesDashboard" options={{
           headerShown: false,
-        }} />
+        }} >
+          {(props) => (
+            <NotesDashboard
+              {...props}
+              setCardData={setCardData}
+              cardData={cardData}
+            />
+          )}
+        </Stack.Screen>
 
 
         <Stack.Screen

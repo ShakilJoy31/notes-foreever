@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-const NewNote = ({ route, navigation, setTitle, setDescription, setCustomNavigation  }) => {
+const NewNote = ({ route, navigation, setTitle, setDescription, setCustomNavigation }) => {
     useEffect(() => {
         setCustomNavigation(navigation);
     }, [])
